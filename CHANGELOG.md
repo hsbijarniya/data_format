@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Implemented DateTime.readable
+
 ## 0.0.2
 
 * Added github repository.
