@@ -1,39 +1,50 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+Library that simplify all the formatting for you.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+## DateTime Format
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+How to use
+variableName(modifierA, modifierB, ...)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Example
+year: four digit year i.e. 2023
+year(lastTwo): with last two digit modifier i.e. 23
+month: 1 to 12
+month(name): Jan to Dec
+month(shortname): January to December
+date: 1 to 31
+day: 1 to 7
+day(name): Monday to Sunday
+day(shortname): Mon to Sun
+hour: 0 to 23
+hour(12h): 0 to 11
+hour(12h,zeroPadded): 00 to 11
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Global modifiers are
+lastTwo: get last two digits
+zeroPadded: get two digit value if zero padded
 
 ```dart
-const like = 'sample';
+// "2022 December, 31 8:50:55 AM";
+DateTime(2022, 12, 31, 8, 50, 55).readable('year month(name), date, hour:minute(zeroPadded):second meridiem');
+
+// "22/12/31 7:8:9 AM";
+DateTime(2022, 12, 31, 7, 8, 9).readable('year/month/date hour:minute:second meridiem');
+
+// "31 Dec, 2022 06:08:09 PM";
+DateTime(2022, 12, 31, 18, 8, 9).readable('date month(shortname), year hour(12h,zeroPadded):minute(zeroPadded):second(zeroPadded) meridiem');
+
+// "10 days 1 hour 23 minutes 43 seconds ago";
+DateTime(2022, 12, 31, 18, 8, 9).ago();
+
+// "43 seconds ago";
+DateTime(2022, 12, 31, 18, 8, 9).ago(true);
 ```
 
-## Additional information
+## Number Format
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```dart
+int bytes = 12345678;
+
+bytes.toReadableBytes(0); // 12 MB
+bytes.toReadableBytes(2); // 12.34 MB
+```
